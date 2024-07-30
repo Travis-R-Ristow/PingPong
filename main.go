@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,5 +16,10 @@ func main() {
 	router := gin.Default()
 	router.GET("/ping", sendTestRsp)
 
-	router.Run("localhost:7200")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "7200"
+	}
+
+	router.Run("0.0.0.0:" + port)
 }
