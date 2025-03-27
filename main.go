@@ -14,7 +14,15 @@ func sendPong(c *gin.Context) {
 
 func main() {
 	router := gin.Default()
+
 	router.GET("/ping", sendPong)
+
+	router.GET("/pong", func(c *gin.Context) {
+		oofs := c.Query("oofs")
+    fmt.Println("Package: ", oofs)
+		// save oofs to db i guess
+		sendPong()
+	})
 
 	port := os.Getenv("PORT")
 	if port == "" {
