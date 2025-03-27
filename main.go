@@ -17,10 +17,13 @@ func main() {
 
 	router.GET("/ping", sendPong)
 
-	router.GET("/pong", func(c *gin.Context) {
-		oofs := c.Query("oofs")
+	router.POST("/pong", func(c *gin.Context) {
+    var oofs interface{}
+
+    c.ShouldBindJSON(&oofs);
+
     fmt.Println("Package: ", oofs)
-		// save oofs to db i guess
+		// would save oofs to db i guess
 		sendPong(c)
 	})
 
