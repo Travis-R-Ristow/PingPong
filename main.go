@@ -1,9 +1,9 @@
 package main
 
 import (
-	"os"
-
 	"github.com/gin-gonic/gin"
+	"os"
+  "fmt"
 )
 
 func sendPong(c *gin.Context) {
@@ -21,7 +21,7 @@ func main() {
 		oofs := c.Query("oofs")
     fmt.Println("Package: ", oofs)
 		// save oofs to db i guess
-		sendPong()
+		sendPong(c)
 	})
 
 	port := os.Getenv("PORT")
