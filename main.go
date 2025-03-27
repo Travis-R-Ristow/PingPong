@@ -15,6 +15,20 @@ func sendPong(c *gin.Context) {
 func main() {
 	router := gin.Default()
 
+ // this wont work but we try 
+  router.Use(func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+    c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204) // Handle preflight request
+			return
+		}
+
+		c.Next()
+	})
+
 	router.GET("/ping", sendPong)
 
 	router.POST("/pong", func(c *gin.Context) {
